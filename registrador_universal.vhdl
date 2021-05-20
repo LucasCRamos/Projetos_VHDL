@@ -16,26 +16,22 @@ end entity;
 
 architecture registrador of registrador_universal is
 
-signal aux: bit_vector(word_size-1 downto 0);
-
   begin
-
+    
     process(clock,clear,set)
+
+    variable aux: bit_vector(word_size-1 downto 0);
 
     begin
 
-      if(clear = '1') then --> força saida para 0
+      if (clear = '1') then --> força saida para 0
 
-        aux <= (others => '0');
-
-        parallel_output <= aux;
+        aux := (others => '0');
 
       elsif (set = '1') then --> caso clear nao esteja ativado, força saida para 1
 
-        aux <= (others => '1');
+        aux := (others => '1');
         
-        parallel_output <= aux;
-
       else
 
         if rising_edge(clock) then --> na borda de subida do clock...
@@ -44,23 +40,15 @@ signal aux: bit_vector(word_size-1 downto 0);
 
             if (control = "01") then --> deslocamento pra direita
 
-              aux(word_size-2 downto 0) <= parallel_input(word_size-1 downto 1);
-
-              aux(word_size-1) <= serial_input;
-
-              parallel_output <= aux;
+            aux := serial_input&aux(word_size-1 downto 1);
 
             elsif (control = "10") then --> deslocamento pra esquerda
 
-              aux(word_size-1 downto 1) <= parallel_input(word_size-2 downto 0);
-
-              aux(0) <=  serial_input;
-
-              parallel_output <= aux;
+            aux := aux(word_size-2 downto 0)&serial_input;
 
             elsif (control = "11") then --> carga paralela
 
-            parallel_output <= aux;
+            aux := parallel_input;
 
             end if; --> fecha os if's do control
 
@@ -69,6 +57,8 @@ signal aux: bit_vector(word_size-1 downto 0);
       end if; --> fecha if do rising_edge
 
     end if; --> fecha os if's das entradas assincronas
+
+  parallel_output <= aux;
 
   end process; --> fecha process
 
