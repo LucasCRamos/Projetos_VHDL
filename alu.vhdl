@@ -11,6 +11,8 @@ architecture arch_onebit of onebit is
 
   signal na0, nb0, opsum, opand, opor, a, b, o1, o2, o3, o4: bit;
 
+  signal overflow_temp: bit;
+
   begin
 
   resultado <= opand when operacao = "00" else
@@ -30,13 +32,17 @@ architecture arch_onebit of onebit is
   opsum <= (a and (not b) and (not cin)) or ((not a) and b and (not cin)) or ((not a) and (not b) and cin) or (a and b and cin);
   cout <= (b and cin) or (a and cin) or (a and b);
 
-  set <= opsum;
 
-  o1 <= (not Binvert) and (not a0) and (not b0) and opsum;
-  o2 <= (not Binvert) and a0 and b0 and (not opsum);
-  o3 <= Binvert and (not a0) and b0 and opsum;
-  o4 <= Binvert and a0 and (not b0) and (not opsum);
-  overflow <= o1 or o2 or o3 or o4;
+  o1 <= (not Binvert) and (not a) and (not b) and opsum;
+  o2 <= (not Binvert) and a and b and (not opsum);
+  o3 <= Binvert and (not a) and (not b) and opsum;
+  o4 <= Binvert and a and b and (not opsum);
+
+  overflow_temp <= (o1 or o2 or o3 or o4);
+
+  overflow <= overflow_temp;
+
+  set <= opsum when overflow_temp = '0' else not(opsum);
 
 end arch_onebit;
 

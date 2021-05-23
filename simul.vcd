@@ -1,0 +1,111 @@
+$date
+  Sat May 22 11:57:31 2021
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module numeric_bit $end
+$upscope $end
+$scope module math_real $end
+$upscope $end
+$scope module regfile_tb $end
+$var reg 1 ! stopc $end
+$var reg 1 " clock $end
+$var reg 1 # reset $end
+$var reg 1 $ regwrite $end
+$var reg 3 % rr1[2:0] $end
+$var reg 3 & rr2[2:0] $end
+$var reg 3 ' wr[2:0] $end
+$var reg 9 ( d[8:0] $end
+$var reg 9 ) q1[8:0] $end
+$var reg 9 * q2[8:0] $end
+$scope module test $end
+$var reg 1 + clock $end
+$var reg 1 , reset $end
+$var reg 1 - regwrite $end
+$var reg 3 . rr1[2:0] $end
+$var reg 3 / rr2[2:0] $end
+$var reg 3 0 wr[2:0] $end
+$var reg 9 1 d[8:0] $end
+$var reg 9 2 q1[8:0] $end
+$var reg 9 3 q2[8:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+1!
+0"
+0#
+1$
+b111 %
+b000 &
+b111 '
+b000101011 (
+b000000000 )
+b000000000 *
+0+
+0,
+1-
+b111 .
+b000 /
+b111 0
+b000101011 1
+b000000000 2
+b000000000 3
+#500000
+1"
+b001 &
+b001 '
+1+
+b001 /
+b001 0
+#1000000
+0"
+0+
+#1500000
+1"
+b000101011 *
+1+
+b000101011 3
+#2000000
+0"
+0+
+#2500000
+1"
+1+
+#3000000
+0"
+0+
+#3500000
+1"
+1+
+#4000000
+0"
+0+
+#4500000
+1"
+1+
+#5000000
+0"
+0+
+#5500000
+0!
+1"
+1#
+b110 %
+b110 '
+b000000000 *
+1+
+1,
+b110 .
+b110 0
+b000000000 3
+#6000000
+0"
+0+
+#6500000
