@@ -24,30 +24,26 @@ architecture arch_reg of regfile is
 
     begin
 
-        process(clock,reset,regWrite,wr,rr1,rr2)
+        process(clock,reset)
 
         variable banco : bank;
 
             begin
-
-                banco(regn-1) := (others => '0'); -- o ultimo registrador sempre guarda 0;
 
                 if reset = '1' then --reset assincrono
 
                     for i in 0 to regn-2 loop -- o ultimo já está zerado, por isso vai até regn-2
 
                         banco(i) := (others => '0');
-                        q1 <= (others => '0');
-                        q2 <= (others => '0');  
-            
+
                     end loop;
 
                 elsif rising_edge(clock) and regWrite = '1' then -- na borda de subida faz a escrita
-                            
+
                         if (to_integer(unsigned(wr)) /= regn-1) then -- registrador diferente do ultimo
 
                             banco(to_integer(unsigned(wr))) := d;
-      
+
                         end if;
 
                 end if;
